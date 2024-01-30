@@ -1,6 +1,7 @@
 import pandas as pd
 import time
 import re
+import csv
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
@@ -19,7 +20,7 @@ options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=services, options=options)
 url = 'https://transparencia.ac.gov.br/#/servidor-publico'
 driver.get(url)
-time.sleep(5)
+time.sleep(7)
 #seletores das combobox
 combobox_situacao = driver.find_elements(by=By.CLASS_NAME, value="conteudo-bloco-filtro-select")[0]
 select = Select(combobox_situacao)
@@ -32,7 +33,7 @@ select.select_by_visible_text("Janeiro")
 combobox_periodo_ano = driver.find_elements(by=By.CLASS_NAME, value="conteudo-bloco-filtro-select")[2]
 select = Select(combobox_periodo_ano)
 select.select_by_value("2023")
-
+time.sleep(1)
 #click no botão FILTRAR
 driver.find_element(by=By.TAG_NAME, value="button").click()
 
@@ -40,13 +41,13 @@ driver.find_element(by=By.TAG_NAME, value="button").click()
 #time.sleep(50)
 
 wait = WebDriverWait(driver, 90)
-wait.until(EC.presence_of_element_located((By.TAG_NAME, "table")))
+wait.until(EC.presence_of_element_located((By.TAG_NAME, "tbody")))
 
 #pegando a tabela e as linhas
 # Loop principal
 
 registros = []
-while contador < 10:
+while contador < 5010:
     # Seletor para o botão "Próximo page"
     proximo_page_selector = "//a[@aria-label='Próximo page']"
 
@@ -91,18 +92,28 @@ while contador < 10:
         # Adicionar o dicionário à lista de registros
         registros.append(registro)
 
-    time.sleep(5)
+    time.sleep(2)
+          #adicionar em arquivo csv
+    contador += 1
+    with open("acre_boladao.csv", "a", encoding="utf8") as f:
+        csv_writer = csv.writer(f)
+        if contador ==1: csv_writer.writerow(nomes_colunas) 
+
+        for registro in registros:
+            linha_csv = [registro[coluna] for coluna in nomes_colunas]
+            csv_writer.writerow(linha_csv)
+    
     # Clicando para a próxima
     driver.find_element(By.XPATH, proximo_page_selector).click()
-
-    time.sleep(10)
-    contador += 1
+   
+    registros = []
 
 
 # Exibir os registros
 #for registro in registros:
 #   print(registro)
-
+'''
 df = pd.DataFrame(registros)
 print(df)
-df.to_csv('acre_boladao.csv')
+df.to_csv('acre_boladao.csv', index=False)
+'''
