@@ -62,7 +62,7 @@ while contador < 5010:
     nomes_colunas = [header.text for header in colunas]
     dados_linhas = [i.text for i in linhas]
 
-    grupos_palavras = ['APOSENTADO', 'EM EXERCÍCIO', 'EM FÉRIAS', 'PENSIONISTA', 'AFASTADO/LICENCIADO']
+    grupos_palavras = ['APOSENTADO', 'EM EXERCÍCIO', 'EM FÉRIAS', 'PENSIONISTA', 'AFASTADO/LICENCIADO', 'EXONERADO/RESCISO', 'CEDIDO']
 
     caminho_arquivo = 'cargos_servidor.csv'
 
