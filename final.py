@@ -24,15 +24,15 @@ time.sleep(7)
 #seletores das combobox
 combobox_situacao = driver.find_elements(by=By.CLASS_NAME, value="conteudo-bloco-filtro-select")[0]
 select = Select(combobox_situacao)
-select.select_by_visible_text("Todos")
+select.select_by_visible_text("Todos")                                                                                              #<========= COLOCAR OS SERVIDORES AQUI
 
 combobox_periodo_mes = driver.find_elements(by=By.CLASS_NAME, value="conteudo-bloco-filtro-select")[1]
 select = Select(combobox_periodo_mes)
-select.select_by_visible_text("Janeiro")
+select.select_by_visible_text("Fevereiro")                                                                                          #<========= COLCOAR O MÊS A SER BUSCADO AQUI
 
 combobox_periodo_ano = driver.find_elements(by=By.CLASS_NAME, value="conteudo-bloco-filtro-select")[2]
 select = Select(combobox_periodo_ano)
-select.select_by_value("2023")
+select.select_by_value("2023")                                                                                                      #<========= COLOCAR O ANO A SER BUSCADO AQUI
 time.sleep(1)
 #click no botão FILTRAR
 driver.find_element(by=By.TAG_NAME, value="button").click()
@@ -47,7 +47,7 @@ wait.until(EC.presence_of_element_located((By.TAG_NAME, "tbody")))
 # Loop principal
 
 registros = []
-while contador < 5010:
+while contador < 5276:
     # Seletor para o botão "Próximo page"
     proximo_page_selector = "//a[@aria-label='Próximo page']"
 
@@ -92,10 +92,10 @@ while contador < 5010:
         # Adicionar o dicionário à lista de registros
         registros.append(registro)
 
-    time.sleep(2)
+    time.sleep(3)
           #adicionar em arquivo csv
     contador += 1
-    with open("acre_boladao.csv", "a", encoding="utf8") as f:
+    with open("Bases/acre_boladao_FEV_2023.csv", "a", encoding="utf8") as f:                                                            #<====== COLOCAR O NOME DO ARQUIVO AQUI
         csv_writer = csv.writer(f)
         if contador ==1: csv_writer.writerow(nomes_colunas) 
 
