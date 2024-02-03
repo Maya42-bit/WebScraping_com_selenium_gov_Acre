@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+tmp_inicio = time.time()
 def adicionar_espacos(texto, lista_palavras):
     for palavra in lista_palavras:
         padrao = re.compile(rf'\b{re.escape(palavra)}\b')
@@ -28,12 +29,12 @@ select.select_by_visible_text("Todos")                                          
 
 combobox_periodo_mes = driver.find_elements(by=By.CLASS_NAME, value="conteudo-bloco-filtro-select")[1]
 select = Select(combobox_periodo_mes)
-select.select_by_visible_text("Fevereiro")                                                                                          #<========= COLCOAR O MÊS A SER BUSCADO AQUI
+select.select_by_visible_text("Maio")                                                                                          #<========= COLCOAR O MÊS A SER BUSCADO AQUI
 
 combobox_periodo_ano = driver.find_elements(by=By.CLASS_NAME, value="conteudo-bloco-filtro-select")[2]
 select = Select(combobox_periodo_ano)
 select.select_by_value("2023")                                                                                                      #<========= COLOCAR O ANO A SER BUSCADO AQUI
-time.sleep(1)
+time.sleep(1.5)
 #click no botão FILTRAR
 driver.find_element(by=By.TAG_NAME, value="button").click()
 
@@ -47,7 +48,7 @@ wait.until(EC.presence_of_element_located((By.TAG_NAME, "tbody")))
 # Loop principal
 
 registros = []
-while contador < 5276:
+while contador < 5329:                                                                                              #<========== QUANTIDADE DE PÁGINAS -1 
     # Seletor para o botão "Próximo page"
     proximo_page_selector = "//a[@aria-label='Próximo page']"
 
@@ -92,10 +93,10 @@ while contador < 5276:
         # Adicionar o dicionário à lista de registros
         registros.append(registro)
 
-    time.sleep(3)
+    time.sleep(1)
           #adicionar em arquivo csv
     contador += 1
-    with open("Bases/acre_boladao_FEV_2023.csv", "a", encoding="utf8") as f:                                                            #<====== COLOCAR O NOME DO ARQUIVO AQUI
+    with open("Bases/acre_boladao_MAI_2023.csv", "a", encoding="utf8") as f:                                                            #<====== COLOCAR O NOME DO ARQUIVO AQUI
         csv_writer = csv.writer(f)
         if contador ==1: csv_writer.writerow(nomes_colunas) 
 
@@ -107,6 +108,16 @@ while contador < 5276:
     driver.find_element(By.XPATH, proximo_page_selector).click()
    
     registros = []
+
+tmp_fim = time.time()
+duracao = tmp_fim - tmp_inicio
+
+duracao_horas = int(duracao // 3600)
+duracao_minutos = int((duracao % 3600) // 60)
+duracao_segundos = int(duracao % 60)
+
+print(f'O script levou {duracao_horas} horas, {duracao_minutos} minutos e {duracao_segundos} segundos para ser executado.')
+
 
 
 # Exibir os registros
