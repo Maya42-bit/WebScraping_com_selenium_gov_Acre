@@ -29,7 +29,7 @@ select.select_by_visible_text("Todos")                                          
 
 combobox_periodo_mes = driver.find_elements(by=By.CLASS_NAME, value="conteudo-bloco-filtro-select")[1]
 select = Select(combobox_periodo_mes)
-select.select_by_visible_text("Setembro")                                                                                                #<========= COLCOAR O MÊS A SER BUSCADO AQUI
+select.select_by_visible_text("Novembro")                                                                                                #<========= COLCOAR O MÊS A SER BUSCADO AQUI
 
 combobox_periodo_ano = driver.find_elements(by=By.CLASS_NAME, value="conteudo-bloco-filtro-select")[2]
 select = Select(combobox_periodo_ano)
@@ -47,7 +47,7 @@ wait.until(EC.presence_of_element_located((By.TAG_NAME, "tbody")))
 # Loop principal
 
 registros = []
-while contador < 5678:                                                                                                                 #<========== QUANTIDADE DE PÁGINAS -1 
+while contador < 5419:                                                                                                                 #<========== QUANTIDADE DE PÁGINAS -1 
     # Seletor para o botão "Próximo page"
     proximo_page_selector = "//a[@aria-label='Próximo page']"
 
@@ -92,10 +92,10 @@ while contador < 5678:                                                          
         # Adicionar o dicionário à lista de registros
         registros.append(registro)
 
-    time.sleep(1.8)
+    time.sleep(1.5)
           #adicionar em arquivo csv
     contador += 1
-    with open("Bases/acre_boladao_SET_2023.csv", "a", encoding="utf8") as f:                                                            #<====== COLOCAR O NOME DO ARQUIVO AQUI
+    with open("Bases/acre_boladao_NOV_2023.csv", "a", encoding="utf8") as f:                                                            #<====== COLOCAR O NOME DO ARQUIVO AQUI
         csv_writer = csv.writer(f)
         if contador ==1: csv_writer.writerow(nomes_colunas) 
 
