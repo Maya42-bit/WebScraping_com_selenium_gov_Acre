@@ -47,7 +47,7 @@ wait.until(EC.presence_of_element_located((By.TAG_NAME, "tbody")))
 # Loop principal
 
 registros = []
-while contador < 10645:                                                                                                                 #<========== QUANTIDADE DE PÁGINAS -1 
+while contador < 5424:                                                                                                                 #<========== QUANTIDADE DE PÁGINAS -1 
     # Seletor para o botão "Próximo page"
     proximo_page_selector = "//a[@aria-label='Próximo page']"
 
