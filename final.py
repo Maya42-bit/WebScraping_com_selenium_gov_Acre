@@ -92,8 +92,10 @@ while contador < 5419:                                                          
         # Adicionar o dicionário à lista de registros
         registros.append(registro)
 
-    time.sleep(1.5)
-          #adicionar em arquivo csv
+    time.sleep(1)
+        #adicionar em arquivo csv
+    
+    
     contador += 1
     with open("Bases/acre_boladao_NOV_2023.csv", "a", encoding="utf8") as f:                                                            #<====== COLOCAR O NOME DO ARQUIVO AQUI
         csv_writer = csv.writer(f)
